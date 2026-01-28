@@ -1,10 +1,12 @@
 import { Router } from 'express'
-import { login } from '../controllers/auth.ts'
+import { login, signUp } from '../controllers/auth.ts'
 
 
 const authRouter:Router = Router()
 
-authRouter.get("/login", login)
+authRouter.post("/login", login)
+authRouter.post("/signup", signUp)
+
 
 
 export default authRouter
