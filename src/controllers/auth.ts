@@ -1,13 +1,13 @@
 import type { NextFunction, Request, Response } from "express";
-import { prisma } from "../index.ts";
+import { prisma } from "../index";
 import { hashSync, compareSync } from "bcrypt";
 import jwt from "jsonwebtoken";
-import { JWT_SECRET } from "../secrets.ts";
-import { BadRequestsException } from "../exceptions/bad-requests.ts";
+import { JWT_SECRET } from "../secrets";
+import { BadRequestsException } from "../exceptions/bad-requests";
 import { ErrorCodes } from "../exceptions/root.js";
 import { SignUpSchema } from "../schema/users.js";
-import { UnprocessableEntity } from "../exceptions/validations.ts";
-import { NotFoundException } from "../exceptions/not-found.ts";
+import { UnprocessableEntity } from "../exceptions/validations";
+import { NotFoundException } from "../exceptions/not-found";
 
 export const signUp = async (
   req: Request,
@@ -62,7 +62,7 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
   });
 
   if (!user) {
-     next(
+     return next(
         new NotFoundException(
           "User not found, please signup",
           ErrorCodes.USER_NOT_FOUND,
@@ -82,7 +82,7 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
       {
         userId: user.id,
       },
-      JWT_SECRET,
+      JWT_SECRET!,
     );
     res.send({ user, token });
   }

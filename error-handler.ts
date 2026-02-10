@@ -1,4 +1,4 @@
-import { NextFunction } from "express";
+import { Request, Response, NextFunction } from "express";
 import { ErrorCodes, HttpException } from "./src/exceptions/root";
 import { InternalException } from "./src/exceptions/internal-exception";
 import { ZodError } from "zod";
@@ -19,12 +19,14 @@ export const errorHandler = (method: Function) => {
             ErrorCodes.UNPROCESSABLE_ENTITY
           );
         }
+        else {
 
         exception = new InternalException(
           "Something went wrong",
           error,
           ErrorCodes.INTERNAL_EXCEPTION,
         );
+      }
       }
       next(exception);
     }

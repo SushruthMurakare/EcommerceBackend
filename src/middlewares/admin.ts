@@ -6,7 +6,7 @@ import { UnAuthorizedException } from "../exceptions/unauthorized";
 export const adminMiddleWare = async (req:Request, res:Response, next:NextFunction) => {
 
     const user = req.user;
-    if (user.role == "ADMIN"){
+    if (user?.role == "ADMIN"){
         next()
 
     }

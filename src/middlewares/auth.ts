@@ -3,7 +3,7 @@ import { UnAuthorizedException } from "../exceptions/unauthorized";
 import { ErrorCodes } from "../exceptions/root";
 import jwt from 'jsonwebtoken'
 import { JWT_SECRET } from "../secrets";
-import { prisma } from "../index.ts";
+import { prisma } from "../index";
 
 
 export const authMiddleWare = async (req:Request, res:Response, next:NextFunction) => {
@@ -14,12 +14,12 @@ export const authMiddleWare = async (req:Request, res:Response, next:NextFunctio
     }
 
     try {
-        const payload = jwt.verify(token, JWT_SECRET) as any
+        const payload = jwt.verify(token!, JWT_SECRET!) as any
 
         const user = await prisma.user.findFirst({where : {id: payload.userId}})
         
         if (!user) {
-        next(new UnAuthorizedException("Unauthorized", ErrorCodes.UNAUTHORIZED))
+        return next(new UnAuthorizedException("Unauthorized", ErrorCodes.UNAUTHORIZED))
 
         }
 

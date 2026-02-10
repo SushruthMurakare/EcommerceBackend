@@ -1,5 +1,5 @@
 import type { NextFunction, Request,Response } from "express";
-import { ErrorCodes, type HttpException } from "../exceptions/root.ts";
+import { ErrorCodes, type HttpException } from "../exceptions/root";
 
 export const errorMiddleware = (error: HttpException, req: Request, res: Response, next: NextFunction) => {
     res.status(error.statusCode).json({

@@ -1,7 +1,7 @@
 import { Router } from 'express'
-import authRouter from './auth.ts'
-import productsRouter from './products.ts'
-import { usersRouter } from './users.ts'
+import authRouter from './auth'
+import productsRouter from './products'
+import { usersRouter } from './users'
 
 
 const routeRouter: Router = Router()

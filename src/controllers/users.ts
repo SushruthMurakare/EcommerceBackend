@@ -1,12 +1,18 @@
 import { NextFunction, Request, Response } from "express";
 import { AddressSchema, UpdateUserSchema } from "../schema/users";
-import { prisma } from "../index.ts";
+import { prisma } from "../index";
 import { Address, User } from "@prisma/client";
 import { NotFoundException } from "../exceptions/not-found";
 import { ErrorCodes } from "../exceptions/root";
 import { BadRequestsException } from "../exceptions/bad-requests";
+import { UnAuthorizedException } from "../exceptions/unauthorized";
 
-export const addAddress = async (req: Request, res: Response) => {
+export const addAddress = async (req: Request, res: Response, next: NextFunction) => {
+   if (!req.user) {
+    return next(
+      new UnAuthorizedException("Unauthorized", ErrorCodes.UNAUTHORIZED)
+    );
+  }
   AddressSchema.parse(req.body);
   console.log({ req: req.user });
   const address = await prisma.address.create({
@@ -59,6 +65,11 @@ export const updateUser = async (
   res: Response,
   next: NextFunction,
 ) => {
+  if (!req.user) {
+    return next(
+      new UnAuthorizedException("Unauthorized", ErrorCodes.UNAUTHORIZED)
+    );
+  }
   const validatedData = UpdateUserSchema.parse(req.body);
   let shippingAddress: Address;
   let billingAddress: Address;

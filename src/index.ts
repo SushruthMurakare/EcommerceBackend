@@ -1,10 +1,10 @@
 import express from 'express'
 import type { Express, Request, Response } from 'express';
-import { PORT } from './secrets.ts';
-import routeRouter from './routes/index.ts';
+import { PORT } from './secrets';
+import routeRouter from './routes/index';
 import { PrismaClient } from '@prisma/client'
-import { errorMiddleware } from './middlewares/errors.ts';
-import { SignUpSchema } from './schema/users.ts';
+import { errorMiddleware } from './middlewares/errors';
+import { SignUpSchema } from './schema/users';
 
 
 

@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { prisma } from "../index.ts";
+import { prisma } from "../index";
 import { ProductsSchema } from "../schema/products.js";
 import { BadRequestsException } from "../exceptions/bad-requests.js";
 import { ErrorCodes } from "../exceptions/root.js";

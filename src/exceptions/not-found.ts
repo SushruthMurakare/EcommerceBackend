@@ -1,5 +1,5 @@
 
-import { HttpException, ErrorCodes } from "./root.ts";
+import { HttpException, ErrorCodes } from "./root";
 
 export class NotFoundException extends HttpException {
     constructor(message: string, errorCode: ErrorCodes) {
